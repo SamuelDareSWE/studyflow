@@ -1,4 +1,4 @@
-package com.studyflow_backend;
+package com.studyflow.studyflow_backend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
