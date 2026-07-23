@@ -2,15 +2,17 @@ package com.studyflow.studyflow_backend.academicperiod.service;
 
 import com.studyflow.studyflow_backend.academicperiod.dto.AcademicPeriodResponse;
 import com.studyflow.studyflow_backend.academicperiod.dto.CreateAcademicPeriodRequest;
+import org.springframework.data.domain.Page;
 
-import java.util.List;
+import org.springframework.data.domain.Pageable;
+
 
 public interface AcademicPeriodService {
     AcademicPeriodResponse createAcademicPeriod(CreateAcademicPeriodRequest request);
 
     AcademicPeriodResponse getAcademicPeriodById(Long id);
 
-    List<AcademicPeriodResponse> getAllAcademicPeriods();
+    Page<AcademicPeriodResponse> getAllAcademicPeriods(Pageable pageable);
 
     AcademicPeriodResponse updateAcademicPeriod(Long id, CreateAcademicPeriodRequest request);
 
