@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 
 
 public interface AcademicPeriodService {
+
     AcademicPeriodResponse createAcademicPeriod(CreateAcademicPeriodRequest request);
 
     AcademicPeriodResponse getAcademicPeriodById(Long id);
