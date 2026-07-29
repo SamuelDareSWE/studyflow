@@ -5,6 +5,7 @@ import com.studyflow.studyflow_backend.academicperiod.dto.CreateAcademicPeriodRe
 import com.studyflow.studyflow_backend.academicperiod.entity.AcademicPeriod;
 import com.studyflow.studyflow_backend.academicperiod.mapper.AcademicPeriodMapper;
 import com.studyflow.studyflow_backend.academicperiod.repository.AcademicPeriodRepository;
+import com.studyflow.studyflow_backend.common.exception.BadRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -58,8 +59,9 @@ public class AcademicPeriodServiceImpl implements AcademicPeriodService {
                 && request.getEndDate() != null
                 && request.getStartDate().isAfter(request.getEndDate())) {
 
-            throw new IllegalArgumentException(
-                    "Start date cannot be after end date.");
+            throw new BadRequestException(
+                    "Start date can not be after the end date."
+            );
         }
     }
 
