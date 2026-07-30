@@ -47,7 +47,10 @@ public class AcademicPeriodServiceImpl implements AcademicPeriodService {
 
     @Override
     public Page<AcademicPeriodResponse> getAllAcademicPeriods(Pageable pageable) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+
+        return academicPeriodRepository.findAll(pageable)
+                .map(academicPeriodMapper::toResponse);
+
     }
 
     @Override
