@@ -62,4 +62,10 @@ public class AcademicPeriodController {
 
     }
 
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletedAcademicPeriod(@PathVariable Long id) {
+        academicPeriodService.deleteAcademicPeriod(id);
+    }
+
 }

@@ -47,4 +47,8 @@ public class AcademicPeriod {
     @Column(nullable = false)
     private Boolean active = true;
 
+    @NotNull
+    @Column(nullable = false)
+    private Boolean deleted = false;
+
 }

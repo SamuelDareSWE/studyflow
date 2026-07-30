@@ -35,10 +35,9 @@ public class AcademicPeriodServiceImpl implements AcademicPeriodService {
     @Override
     public AcademicPeriodResponse getAcademicPeriodById(Long id) {
 
-        return academicPeriodRepository.findById(id)
-                .map(academicPeriodMapper::toResponse)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("Academic Period not found with the id: " + id));
+       AcademicPeriod academicPeriod = findAcademicPeriodById(id);
+
+       return academicPeriodMapper.toResponse(academicPeriod);
 
 
     }
@@ -48,7 +47,7 @@ public class AcademicPeriodServiceImpl implements AcademicPeriodService {
     @Override
     public Page<AcademicPeriodResponse> getAllAcademicPeriods(Pageable pageable) {
 
-        return academicPeriodRepository.findAll(pageable)
+        return academicPeriodRepository.findAllByDeletedFalse(pageable)
                 .map(academicPeriodMapper::toResponse);
 
     }
@@ -70,6 +69,13 @@ public class AcademicPeriodServiceImpl implements AcademicPeriodService {
     @Override
     public void deleteAcademicPeriod(Long id) {
 
+        AcademicPeriod academicPeriod = findAcademicPeriodById(id);
+
+        academicPeriod.setActive(false);
+        academicPeriod.setDeleted(true);
+
+        academicPeriodRepository.save(academicPeriod);
+
     }
 
     private void validateAcademicPeriodDates(CreateAcademicPeriodRequest request) {
@@ -85,7 +91,7 @@ public class AcademicPeriodServiceImpl implements AcademicPeriodService {
     }
 
     private AcademicPeriod findAcademicPeriodById(Long id) {
-        return academicPeriodRepository.findById(id)
+        return academicPeriodRepository.findByIdAndDeletedFalse(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException(
                                 "Academic period not found with the id: " + id));
