@@ -49,4 +49,17 @@ public class AcademicPeriodController {
 
     }
 
+    // Update academic Period
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public AcademicPeriodResponse updateAcademicPeriod(
+            @PathVariable Long id,
+            @Valid
+            @RequestBody
+            CreateAcademicPeriodRequest request) {
+
+        return academicPeriodService.updateAcademicPeriod(id, request);
+
+    }
+
 }

@@ -12,11 +12,7 @@ public class AcademicPeriodMapper {
             return null;
         }
         AcademicPeriod entity = new AcademicPeriod();
-        entity.setName(request.getName());
-        entity.setType(request.getType());
-        entity.setYear(request.getYear());
-        entity.setStartDate(request.getStartDate());
-        entity.setEndDate(request.getEndDate());
+        updateEntity(entity, request);
 
         return entity;
     }
@@ -36,6 +32,21 @@ public class AcademicPeriodMapper {
         response.setActive(entity.getActive());
 
         return response;
+    }
+
+    public void updateEntity(
+            AcademicPeriod entity,
+            CreateAcademicPeriodRequest request){
+        if (entity == null || request == null) {
+            return;
+        }
+
+        entity.setName(request.getName());
+        entity.setType(request.getType());
+        entity.setYear(request.getYear());
+        entity.setStartDate(request.getStartDate());
+        entity.setEndDate(request.getEndDate());
+
     }
 
 

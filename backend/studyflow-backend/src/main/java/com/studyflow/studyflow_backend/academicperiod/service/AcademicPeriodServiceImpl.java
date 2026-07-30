@@ -55,7 +55,16 @@ public class AcademicPeriodServiceImpl implements AcademicPeriodService {
 
     @Override
     public AcademicPeriodResponse updateAcademicPeriod(Long id, CreateAcademicPeriodRequest request) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+
+        validateAcademicPeriodDates(request);
+
+        AcademicPeriod existingAcademicPeriod = findAcademicPeriodById(id);
+
+        academicPeriodMapper.updateEntity(existingAcademicPeriod, request);
+
+        AcademicPeriod saved = academicPeriodRepository.save(existingAcademicPeriod);
+
+        return academicPeriodMapper.toResponse(existingAcademicPeriod);
     }
 
     @Override
@@ -73,6 +82,13 @@ public class AcademicPeriodServiceImpl implements AcademicPeriodService {
                     "Start date can not be after the end date."
             );
         }
+    }
+
+    private AcademicPeriod findAcademicPeriodById(Long id) {
+        return academicPeriodRepository.findById(id)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Academic period not found with the id: " + id));
     }
 
     private AcademicPeriod createAcademicPeriodEntity(
