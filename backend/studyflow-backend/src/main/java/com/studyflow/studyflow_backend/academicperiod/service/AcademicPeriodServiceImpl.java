@@ -6,6 +6,7 @@ import com.studyflow.studyflow_backend.academicperiod.entity.AcademicPeriod;
 import com.studyflow.studyflow_backend.academicperiod.mapper.AcademicPeriodMapper;
 import com.studyflow.studyflow_backend.academicperiod.repository.AcademicPeriodRepository;
 import com.studyflow.studyflow_backend.common.exception.BadRequestException;
+import com.studyflow.studyflow_backend.common.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -33,7 +34,13 @@ public class AcademicPeriodServiceImpl implements AcademicPeriodService {
 
     @Override
     public AcademicPeriodResponse getAcademicPeriodById(Long id) {
-        throw new UnsupportedOperationException("Not implemented yet.");
+
+        return academicPeriodRepository.findById(id)
+                .map(academicPeriodMapper::toResponse)
+                .orElseThrow(() ->
+                        new ResourceNotFoundException("Academic Period not found with the id: " + id));
+
+
     }
 
 

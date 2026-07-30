@@ -22,4 +22,11 @@ public class AcademicPeriodController {
         return academicPeriodService.createAcademicPeriod(request);
     }
 
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public AcademicPeriodResponse getAcademicPeriodById(
+            @PathVariable Long id){
+        return academicPeriodService.getAcademicPeriodById(id);
+    }
+
 }
