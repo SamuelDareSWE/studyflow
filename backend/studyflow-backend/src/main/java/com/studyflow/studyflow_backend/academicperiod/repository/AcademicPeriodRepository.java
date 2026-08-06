@@ -11,5 +11,5 @@ public interface AcademicPeriodRepository extends JpaRepository<AcademicPeriod, 
 
     Page<AcademicPeriod> findAllByDeletedFalse(Pageable pageable);
 
-    Optional<AcademicPeriod> findByIdAndDeletedFalse(Long aLong);
+    Optional<AcademicPeriod> findByIdAndDeletedFalse(Long id);
 }
