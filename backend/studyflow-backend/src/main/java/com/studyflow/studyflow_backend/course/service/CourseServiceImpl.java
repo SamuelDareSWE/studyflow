@@ -79,6 +79,10 @@ public class CourseServiceImpl implements CourseService {
         return courseMapper.toResponse(savedCourse);
     }
 
+    public Course findCourseEntityById(Long id) {
+        return findCourseById(id);
+    }
+
     @Override
     public void deleteCourse(Long id) {
 
