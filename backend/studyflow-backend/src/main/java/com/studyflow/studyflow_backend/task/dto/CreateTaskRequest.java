@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public record CreateTaskRequest(
 
         @NotBlank(message = "Task title is required.")
-        @Size(max = 150, message = "Task title must not exceed 1000 character.")
+        @Size(max = 150, message = "Task title must not exceed 150 characters.")
         String title,
 
         @Size(max = 1000, message = "Task description must not exceed 1000 characters.")

@@ -6,6 +6,7 @@ import com.studyflow.studyflow_backend.course.entity.Course;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -17,7 +18,6 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,6 +42,7 @@ public class Task {
     private LocalDateTime deadline;
 
     @NotNull(message = "Estimated time is required.")
+    @Positive(message = "Estimated time must be greater than zero.")
     @Column(nullable = false)
     private Integer estimatedTime;
 
@@ -50,15 +51,12 @@ public class Task {
     @Column(nullable = false)
     private RecurrenceType recurrence = RecurrenceType.NONE;
 
-    @NotNull
     @Column(nullable = false)
     private Boolean completed = false;
 
-    @NotNull
     @Column(nullable = false)
     private Boolean active = true;
 
-    @NotNull
     @Column(nullable = false)
     private Boolean deleted = false;
 

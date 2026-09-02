@@ -12,7 +12,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/v1/tasks")
@@ -62,6 +61,14 @@ public class TaskController {
     public void deleteTask(@PathVariable Long id) {
 
         taskService.deleteTask(id);
+
+    }
+
+    @PatchMapping("/{id}/complete")
+    @ResponseStatus(HttpStatus.OK)
+    public TaskResponse completeTask(@PathVariable Long id){
+
+        return taskService.completeTask(id);
 
     }
 

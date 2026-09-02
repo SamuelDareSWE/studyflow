@@ -1,6 +1,5 @@
 package com.studyflow.studyflow_backend.task.service;
 
-import com.studyflow.studyflow_backend.course.entity.Course;
 import com.studyflow.studyflow_backend.task.dto.CreateTaskRequest;
 import com.studyflow.studyflow_backend.task.dto.TaskResponse;
 import com.studyflow.studyflow_backend.task.dto.UpdateTaskRequest;
@@ -18,4 +17,7 @@ public interface TaskService {
     TaskResponse updateTask(Long id, UpdateTaskRequest request);
 
     void deleteTask(Long id);
+
+    TaskResponse completeTask(Long id);
+
 }

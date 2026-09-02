@@ -82,6 +82,19 @@ public class TaskServiceImpl implements TaskService {
 
     }
 
+    @Override
+    public TaskResponse completeTask(Long id) {
+
+        Task task = findTaskById(id);
+
+        task.setCompleted(true);
+
+        Task completedTask = taskRepository.save(task);
+
+        return taskMapper.toResponse(completedTask);
+
+    }
+
     private Task findTaskById(Long id) {
 
         return taskRepository.findByIdAndDeletedFalse(id)
