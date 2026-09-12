@@ -1,5 +1,6 @@
 package com.studyflow.studyflow_backend.task.service;
 
+import com.studyflow.studyflow_backend.common.enums.TaskPriority;
 import com.studyflow.studyflow_backend.common.exception.ResourceNotFoundException;
 import com.studyflow.studyflow_backend.course.entity.Course;
 import com.studyflow.studyflow_backend.course.service.CourseService;
@@ -9,9 +10,11 @@ import com.studyflow.studyflow_backend.task.dto.UpdateTaskRequest;
 import com.studyflow.studyflow_backend.task.entity.Task;
 import com.studyflow.studyflow_backend.task.mapper.TaskMapper;
 import com.studyflow.studyflow_backend.task.repository.TaskRepository;
+import com.studyflow.studyflow_backend.task.specification.TaskSpecification;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -46,9 +49,15 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public Page<TaskResponse> getAllTasks(Pageable pageable) {
+    public Page<TaskResponse> getAllTasks(Boolean completed, TaskPriority priority,Long courseId, Pageable pageable) {
 
-        return taskRepository.findAllByDeletedFalse(pageable)
+        Specification<Task> specification =
+                Specification.where(TaskSpecification.isNotDeleted())
+                        .and(TaskSpecification.hasCompletedStatus(completed))
+                        .and(TaskSpecification.hasPriority(priority))
+                        .and(TaskSpecification.hasCourseId(courseId));
+
+        return taskRepository.findAll(specification, pageable)
                 .map(taskMapper::toResponse);
 
     }

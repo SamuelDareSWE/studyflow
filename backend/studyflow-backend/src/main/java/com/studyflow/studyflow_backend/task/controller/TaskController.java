@@ -1,5 +1,6 @@
 package com.studyflow.studyflow_backend.task.controller;
 
+import com.studyflow.studyflow_backend.common.enums.TaskPriority;
 import com.studyflow.studyflow_backend.task.dto.CreateTaskRequest;
 import com.studyflow.studyflow_backend.task.dto.TaskResponse;
 import com.studyflow.studyflow_backend.task.dto.UpdateTaskRequest;
@@ -39,11 +40,16 @@ public class TaskController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public Page<TaskResponse> getAllTasks(
+            @RequestParam(required = false) Boolean completed,
+            @RequestParam(required = false) TaskPriority priority,
+            @RequestParam(required = false) Long courseId,
             @PageableDefault(
                     page = 0,
                     size = 10,
                     sort = "id") Pageable pageable){
-        return taskService.getAllTasks(pageable);
+
+        return taskService.getAllTasks(completed, priority, courseId, pageable);
+
     }
 
     @PutMapping("/{id}")

@@ -1,5 +1,6 @@
 package com.studyflow.studyflow_backend.task.service;
 
+import com.studyflow.studyflow_backend.common.enums.TaskPriority;
 import com.studyflow.studyflow_backend.task.dto.CreateTaskRequest;
 import com.studyflow.studyflow_backend.task.dto.TaskResponse;
 import com.studyflow.studyflow_backend.task.dto.UpdateTaskRequest;
@@ -12,7 +13,11 @@ public interface TaskService {
 
     TaskResponse getTaskById(Long id);
 
-    Page<TaskResponse> getAllTasks(Pageable pageable);
+    Page<TaskResponse> getAllTasks(
+            Boolean completed,
+            TaskPriority priority,
+            Long courseId,
+            Pageable pageable);
 
     TaskResponse updateTask(Long id, UpdateTaskRequest request);
 
