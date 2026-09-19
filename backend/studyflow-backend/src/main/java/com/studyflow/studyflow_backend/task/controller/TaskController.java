@@ -46,9 +46,13 @@ public class TaskController {
             @PageableDefault(
                     page = 0,
                     size = 10,
-                    sort = "id") Pageable pageable){
+                    sort = "deadline") Pageable pageable){
 
-        return taskService.getAllTasks(completed, priority, courseId, pageable);
+        return taskService.getAllTasks(
+                completed,
+                priority,
+                courseId,
+                pageable);
 
     }
 
